@@ -113,6 +113,50 @@
         .map-dark {
             filter: invert(100%) grayscale(90%) brightness(0.9) contrast(1.1);
         }
+
+        /* ===============================================================
+         == RESPONSIVE TABLE STYLES (THE FIX)
+         == This CSS block converts your tables into a "card" view
+         == on mobile screens, making them easy to read.
+         ===============================================================
+        */
+        @media (max-width: 767px) {
+            .responsive-table thead {
+                display: none; /* Hide the table header on mobile */
+            }
+            .responsive-table tbody, 
+            .responsive-table tr, 
+            .responsive-table td {
+                display: block; /* Stack elements vertically */
+                width: 100%;
+            }
+            .responsive-table tr {
+                border: 1px solid #00ff88; /* Bioseed Green border */
+                border-radius: 0.75rem; /* Rounded corners for the "card" */
+                margin-bottom: 1.5rem; /* Space between each "card" */
+                padding: 1rem;
+                background: rgba(0, 255, 136, 0.05); /* Faint green background */
+            }
+            .responsive-table td {
+                padding-left: 0.5rem; /* Align with card padding */
+                padding-right: 0.5rem; /* Align with card padding */
+                padding-bottom: 1rem; /* Space between items in the card */
+                border-bottom: 0; /* Remove default table borders */
+            }
+            .responsive-table td:last-child {
+                padding-bottom: 0; /* No padding on the last item */
+            }
+            /* This pseudo-element adds the "Benefit:" and "Impact:" labels */
+            .responsive-table td::before {
+                content: attr(data-label); /* Pulls text from the data-label attribute */
+                display: block;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #00ff88; /* Bioseed Green label */
+                margin-bottom: 0.25rem;
+                font-size: 0.75rem; /* Small label text */
+            }
+        }
     </style>
 
     <!-- 
@@ -337,12 +381,10 @@
         <section id="domains" class="py-24 sm:py-32 bg-black relative overflow-hidden">
             <!-- 
               Unified "Plexus" Background Animation.
-              This single animation replaces the four individual card animations.
-              It runs behind the entire section.
             -->
             <div id="domains-particles-bg" class="absolute inset-0 z-0" aria-hidden="true"></div>
 
-            <!-- Content container is set to z-10 to appear ON TOP of the animation -->
+            <!-- Content container -->
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="text-center max-w-4xl mx-auto">
                     <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase text-white" data-aos="fade-down">
@@ -531,29 +573,34 @@
 
                         <h4 class="mt-8 text-xl font-extrabold text-white mb-4">Proven Benefits:</h4>
                         <div class="overflow-x-auto rounded-lg border border-gray-700">
-                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300">
+                            <!-- ADDED responsive-table class -->
+                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300 responsive-table">
                                 <thead class="bg-bioseed-green/20">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Benefit</th>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Impact</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-700">
+                                <tbody class="divide-y divide-gray-700 md:divide-y">
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">95% Germination Rate</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Creates ideal micro-environment; boosts root length and surface area by 20-30% under stress</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">95% Germination Rate</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Creates ideal micro-environment; boosts root length and surface area by 20-30% under stress</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">30–60 Days Moisture Retention</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Enhances water-holding capacity up to 500%; supports hydroponic-like growth without external water</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">30–60 Days Moisture Retention</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Enhances water-holding capacity up to 500%; supports hydroponic-like growth without external water</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">Natural Weed Suppression</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Inhibits competitors by 70%; reduces herbicide needs while promoting beneficial microbes</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">Natural Weed Suppression</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Inhibits competitors by 70%; reduces herbicide needs while promoting beneficial microbes</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">Fully Biodegradable</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Decomposes in 6-12 months, adding 15-25% organic matter; improves long-term soil fertility</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">Fully Biodegradable</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Decomposes in 6-12 months, adding 15-25% organic matter; improves long-term soil fertility</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -578,25 +625,29 @@
 
                         <h4 class="mt-8 text-xl font-extrabold text-white mb-4">Proven Benefits:</h4>
                         <div class="overflow-x-auto rounded-lg border border-gray-700">
-                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300">
+                            <!-- ADDED responsive-table class -->
+                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300 responsive-table">
                                 <thead class="bg-bioseed-green/20">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Benefit</th>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Impact</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-700">
+                                <tbody class="divide-y divide-gray-700 md:divide-y">
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">Real-Time Soil, Weather & Nutrient Monitoring</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Reduces input waste by 15-20%; enables precise interventions via offline caching</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">Real-Time Soil, Weather & Nutrient Monitoring</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Reduces input waste by 15-20%; enables precise interventions via offline caching</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">AI-Powered Irrigation & Yield Forecasting</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Boosts yield predictability by 20%; automates water use for 30% savings in drought-prone areas</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">AI-Powered Irrigation & Yield Forecasting</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Boosts yield predictability by 20%; automates water use for 30% savings in drought-prone areas</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">Plant Disease Diagnosis via Photo Upload</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Detects issues 85% faster than manual scouting; multilingual alerts cut response time by 50%</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">Plant Disease Diagnosis via Photo Upload</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Detects issues 85% faster than manual scouting; multilingual alerts cut response time by 50%</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -627,25 +678,29 @@
 
                         <h4 class="mt-8 text-xl font-extrabold text-white mb-4">Proven Benefits:</h4>
                         <div class="overflow-x-auto rounded-lg border border-gray-700">
-                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300">
+                            <!-- ADDED responsive-table class -->
+                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300 responsive-table">
                                 <thead class="bg-bioseed-green/20">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Benefit</th>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Impact</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-700">
+                                <tbody class="divide-y divide-gray-700 md:divide-y">
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">50–80x Water Retention</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Holds 20-30% more moisture than sand; prevents 25% water loss in dry spells</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">50–80x Water Retention</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Holds 20-30% more moisture than sand; prevents 25% water loss in dry spells</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">90% Nutrient Release over 6–9 Months</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Slow-release boosts availability by 35%; counters acidity for better uptake</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">90% Nutrient Release over 6–9 Months</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Slow-release boosts availability by 35%; counters acidity for better uptake</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">20–30% Water Savings & Yield Increase</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Cuts irrigation by 20-35%; enhances rice/wheat output while improving drainage</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">20–30% Water Savings & Yield Increase</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Cuts irrigation by 20-35%; enhances rice/wheat output while improving drainage</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -670,25 +725,29 @@
 
                         <h4 class="mt-8 text-xl font-extrabold text-white mb-4">Proven Benefits:</h4>
                         <div class="overflow-x-auto rounded-lg border border-gray-700">
-                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300">
+                            <!-- ADDED responsive-table class -->
+                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300 responsive-table">
                                 <thead class="bg-bioseed-green/20">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Benefit</th>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Impact</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-700">
+                                <tbody class="divide-y divide-gray-700 md:divide-y">
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">178% Yield Increase in Field Trials</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Amplifies biomass and grain fill; up to 20% higher in rice/wheat under stress</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">178% Yield Increase in Field Trials</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Amplifies biomass and grain fill; up to 20% higher in rice/wheat under stress</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">10x Boost in Grain Zn/Fe Content</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Enhances biofortification; reduces deficiency risks for 2B+ people via staple crops</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">10x Boost in Grain Zn/Fe Content</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Enhances biofortification; reduces deficiency risks for 2B+ people via staple crops</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">90% Nutrient Delivery over 180–270 Days</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Precision release cuts waste by 40%; improves antioxidant activity and stress tolerance</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">90% Nutrient Delivery over 180–270 Days</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Precision release cuts waste by 40%; improves antioxidant activity and stress tolerance</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -714,25 +773,29 @@
 
                         <h4 class="mt-8 text-xl font-extrabold text-white mb-4">Proven Benefits (Field Trials):</h4>
                         <div class="overflow-x-auto rounded-lg border border-gray-700">
-                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300">
+                            <!-- ADDED responsive-table class -->
+                            <table class="w-full min-w-full divide-y divide-gray-700 bg-black/50 text-gray-300 responsive-table">
                                 <thead class="bg-bioseed-green/20">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Benefit</th>
                                         <th scope="col" class="px-6 py-3 text-left text-sm font-medium text-gray-100 uppercase tracking-wider">Impact</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-700">
+                                <tbody class="divide-y divide-gray-700 md:divide-y">
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">+20–30% Crop Growth</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Enhanced photosynthesis (maize: +30%)</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">+20–30% Crop Growth</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Enhanced photosynthesis (maize: +30%)</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">+30% Water Efficiency</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Drought-proofing via stomatal regulation</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">+30% Water Efficiency</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Drought-proofing via stomatal regulation</td>
                                     </tr>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-base font-medium text-gray-100">+25% Soil Health</td>
-                                        <td class="px-6 py-4 text-base text-gray-300">Improved CEC, carbon storage, microbial activity</td>
+                                        <!-- REMOVED whitespace-nowrap, ADDED data-label -->
+                                        <td class="px-6 py-4 text-base font-medium text-gray-100" data-label="Benefit">+25% Soil Health</td>
+                                        <td class="px-6 py-4 text-base text-gray-300" data-label="Impact">Improved CEC, carbon storage, microbial activity</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -756,7 +819,8 @@
 
                 <div class="mt-16 max-w-4xl mx-auto space-y-6" data-aos="fade-up" data-aos-delay="200">
                     <!-- FAQ Item 1 -->
-                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green">
+                    <!-- ADDED hover:bg-gray-800/50 -->
+                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green hover:bg-gray-800/50">
                         <summary class="flex justify-between items-center cursor-pointer list-none">
                             <h3 class="text-xl font-extrabold text-white">What is agri-biotech?</h3>
                             <span class="transform transition-transform duration-300 group-open:rotate-180">
@@ -768,7 +832,8 @@
                         </p>
                     </details>
                     <!-- FAQ Item 2 -->
-                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green">
+                    <!-- ADDED hover:bg-gray-800/50 -->
+                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green hover:bg-gray-800/50">
                         <summary class="flex justify-between items-center cursor-pointer list-none">
                             <h3 class="text-xl font-extrabold text-white">How does nano-technology help farming?</h3>
                             <span class="transform transition-transform duration-300 group-open:rotate-180">
@@ -780,7 +845,8 @@
                         </p>
                     </details>
                     <!-- FAQ Item 3 -->
-                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green">
+                    <!-- ADDED hover:bg-gray-800/50 -->
+                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green hover:bg-gray-800/50">
                         <summary class="flex justify-between items-center cursor-pointer list-none">
                             <h3 class="text-xl font-extrabold text-white">Is FarmAssist™ difficult to use for rural farmers?</h3>
                             <span class="transform transition-transform duration-300 group-open:rotate-180">
@@ -792,7 +858,8 @@
                         </p>
                     </details>
                     <!-- FAQ Item 4 -->
-                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green">
+                    <!-- ADDED hover:bg-gray-800/50 -->
+                    <details class="group bg-gray-900/80 border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-bioseed-green hover:bg-gray-800/50">
                         <summary class="flex justify-between items-center cursor-pointer list-none">
                             <h3 class="text-xl font-extrabold text-white">Where are your products tested?</h3>
                             <span class="transform transition-transform duration-300 group-open:rotate-180">
@@ -888,7 +955,8 @@
 
                 <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="200">
                     <!-- Left Column: Contact Info -->
-                    <div class="lg:col-span-1 bg-gray-900/80 border border-gray-800 rounded-2xl p-8 space-y-6">
+                    <!-- UPDATED: Added text-center and lg:text-left for responsive alignment -->
+                    <div class="lg:col-span-1 bg-gray-900/80 border border-gray-800 rounded-2xl p-8 space-y-6 text-center lg:text-left">
                         <div>
                             <h3 class="text-2xl font-extrabold text-white">General Inquiries</h3>
                             <a href="mailto:bioseedai@gmail.com" class="text-xl text-bioseed-green hover:text-bioseed-blue transition-colors">
@@ -1040,7 +1108,7 @@
                     "random": true,
                     "straight": false,
                     "out_mode": "out",
-                    "bounce": false,
+    "bounce": false,
                     "attract": {
                         "enable": false,
                         "rotateX": 600,
